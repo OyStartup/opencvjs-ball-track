@@ -21,31 +21,30 @@ let doSomething = (s) => {
 
     function onFrame() {
         cv.cvtColor(firstFrame, secondFrame, cv.COLOR_BGR2GRAY)
-        cv.HoughCircles(secondFrame, circles, method, dp, minDist)
-        
-        // circles.data.forEach(c => {
-        //     console.log('Circles found: ', c)
-        // })
+        cv.HoughCircles(secondFrame, circles, method, 1, 45, 75, 40, 0, 0)
 
-        drawBall(secondFrame, circles.data);
-        cv.imshow('videoOutput', secondFrame);
+        drawBall(secondFrame, circles);
+        //cv.imshow('videoOutput', secondFrame);
     }
 
     function drawBall (dstImg, circles) {
-        circles.forEach(({x, y, z}) => {
-        //   const blue = new cv.MatVector(255, 0, 0);
-        //   const orange = new cv.MatVector(0, 128, 255);
-        //   dstImg.drawCircle(new cv.PointVector(x, y), z, { color: blue, thickness: 2 })
-        //   dstImg.drawRectangle(
-        //     new cv.Point(x - 5, y - 5),
-        //     new cv.Point(x + 5, y + 5),
-        //     { color: orange, thickness: 1 }
-        //   );
-        console.log('x y z : ', x, y, z)
-        })
+
+        let color = new cv.Scalar(255, 0, 0);
+
+        // draw circles
+        for (let i = 0; i < circles.cols; ++i) {
+            let x = circles.data32F[i * 3];
+            let y = circles.data32F[i * 3 + 1];
+            let radius = circles.data32F[i * 3 + 2];
+            let center = new cv.Point(x, y);
+            cv.circle(secondFrame, center, radius, color);
+        }
+
+        cv.imshow('canvasOutput', secondFrame);
+
       }
 
-    const FPS = 30;
+    const FPS = 60;
     function processVideo() {
         try {
             if (!streaming) {
