@@ -1,0 +1,19 @@
+{
+  "name": "ball-tracking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "http-server": "^14.1.1",
+    "jpeg-js": "^0.4.4",
+    "opencv.js": "^1.2.1",
+    "requirejs": "^2.3.6"
+  },
+  "type": "module"
+}
